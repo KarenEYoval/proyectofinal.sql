@@ -61,6 +61,17 @@ CREATE TABLE IF NOT EXISTS Materias_Profesores (
     FOREIGN KEY (NumeroPersonal) REFERENCES Profesores(NumeroPersonal)
 );
 
+CREATE TABLE IF NOT EXISTS Oferta (
+    NCR INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    CodigoMateria INT UNSIGNED,
+    NumeroPersonal INT UNSIGNED,
+    CodigoPeriodo INT UNSIGNED,
+    FOREIGN KEY (CodigoMateria) REFERENCES Materias(CodigoMateria),
+    FOREIGN KEY (NumeroPersonal) REFERENCES Profesores(NumeroPersonal),
+    FOREIGN KEY (CodigoPeriodo) REFERENCES PeriodosEscolares(CodigoPeriodo)
+);
+
+
 
 INSERT INTO Alumnos (Matricula, Nombre, ApellidoPaterno, ApellidoMaterno, Email, Edad)
 VALUES 
@@ -137,5 +148,11 @@ VALUES
     (3334, 7586),  -- Materia: Sistemas Operativos, Profesor: Carlos Sánchez
     (4445, 6187),  -- Materia: Experiencia recepcional, Profesor: Guillermo Humberto
     (5556, 7288);  -- Materia: Eleccion Libre, Profesor: Juana Elisa
+
+INSERT INTO Oferta (CodigoMateria, NumeroPersonal, CodigoPeriodo)
+VALUES 
+    (1112, 9284, 0101),
+    (2223, 8285, 0202),  
+    (3334, 7586, 0303);  
 
 
