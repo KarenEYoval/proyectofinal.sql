@@ -10,13 +10,11 @@ CREATE TABLE IF NOT EXISTS Alumnos (
     Edad INT 
 ); 
 
-
 CREATE TABLE IF NOT EXISTS Carreras ( 
     CodigoCarrera INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
     NombreCarrera VARCHAR(100), 
     Descripcion VARCHAR(55) 
 ); 
-
 
 CREATE TABLE IF NOT EXISTS Materias ( 
     CodigoMateria INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
@@ -33,14 +31,12 @@ CREATE TABLE IF NOT EXISTS AreasDeFormacion (
     NombreArea VARCHAR(100) 
 ); 
 
- 
 CREATE TABLE IF NOT EXISTS PeriodosEscolares ( 
     CodigoPeriodo INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
     NombrePeriodo VARCHAR(50), 
     FechaInicio DATE, 
     FechaFin DATE 
 ); 
-
 
 CREATE TABLE IF NOT EXISTS Profesores ( 
     NumeroPersonal INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
@@ -75,6 +71,7 @@ VALUES
     (5, 'LTC', 'Carrera de varios ámbitos');
 
 
+
 INSERT INTO Profesores (NumeroPersonal, Nombre, Email, GradoEstudios)
 VALUES 
     (9284, 'Pedro Martínez', 'pedro@example.com', 'Doctorado'),
@@ -82,7 +79,6 @@ VALUES
     (7586, 'Carlos Sánchez', 'carlos@example.com', 'Licenciatura'),
     (6187, 'Guillermo Humberto', 'guille@example.com', 'Doctorado'),
     (7288, 'Juana Elisa', 'juana@example.com', 'Licenciatura');
-
 
 INSERT INTO Materias (CodigoMateria, NombreMateria, Descripcion, Creditos, Bloque)
 VALUES 
@@ -99,9 +95,7 @@ VALUES
     (70, 'Iniciacion la disciplina'),
     (80, 'Área de formación terminal'),
     (90, 'Área de formación de elección libre');
-   
 
----- Insertar datos en la tabla PeriodosEscolares -----
 
 INSERT INTO PeriodosEscolares (CodigoPeriodo, NombrePeriodo, FechaInicio, FechaFin)
 VALUES 
@@ -113,4 +107,3 @@ VALUES
     (0606, 'Sexto', '2019-06-20', '2019-09-14'),
     (0707, 'Septimo', '2019-12-24', '2020-01-10'),
     (0808, 'Octavo', '2020-03-30', '2020-06-27');
-
