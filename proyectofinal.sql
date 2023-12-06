@@ -56,10 +56,10 @@ CREATE TABLE IF NOT EXISTS Oferta (
     NCR INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     CodigoMateria INT UNSIGNED,
     NumeroPersonal INT UNSIGNED,
-    CodPeriodo INT UNSIGNED,
+    CodigoPeriodo INT UNSIGNED,
     FOREIGN KEY (CodigoMateria) REFERENCES Materia(CodigoMateria),
     FOREIGN KEY (NumeroPersonal) REFERENCES Profesor(NumeroPersonal),
-    FOREIGN KEY (CodidoPeriodo) REFERENCES Periodo(CodigoPeriodo)
+    FOREIGN KEY (CodigoPeriodo) REFERENCES Periodo(CodigoPeriodo)
 );
 
 
@@ -107,6 +107,14 @@ VALUES
     (7288, 'Juana Elisa', 'juana@example.com', 'Licenciatura','x','x');
 
 
+INSERT INTO Area (CodigoArea, Nombre)
+VALUES 
+    (50, 'Area diciplinar'),
+    (60, 'Área de Formación básica'),
+    (70, 'Iniciacion la disciplina'),
+    (80, 'Área de formación terminal'),
+    (90, 'Área de formación de elección libre');
+
 INSERT INTO Materia (CodigoMateria, CodigoCarrera, CodigoArea, NombreMateria, Descripcion, Creditos, Bloque)
 VALUES 
     (1, 1, 50, 'Introducción a la Informática', 'Conceptos básicos de computación', 4, 11),
@@ -116,13 +124,6 @@ VALUES
     (5, 3, 90, 'Historia del Arte', 'Exploración de movimientos artísticos', 4, 2);
 
 
-INSERT INTO Area (CodigoArea, NombreArea)
-VALUES 
-    (50, 'Area diciplinar'),
-    (60, 'Área de Formación básica'),
-    (70, 'Iniciacion la disciplina'),
-    (80, 'Área de formación terminal'),
-    (90, 'Área de formación de elección libre');
 
 
 INSERT INTO Periodo (CodigoPeriodo, NombrePeriodo, FechaInicio, FechaFin)
@@ -136,19 +137,21 @@ VALUES
     (0707, 'Septimo', '2019-12-24', '2020-01-10'),
     (0808, 'Octavo', '2020-03-30', '2020-06-27');
 
-INSERT INTO Cursa (Matricula, NCR, Calificacion)
-VALUES 
-    (123, 1, 9.5),
-    (222, 2, 8),
-    (333, 3, 7),
-    (444, 4, 9),
-    (555, 5, 8.5);
-
-INSERT INTO Oferta (CodigoMateria, NumeroPersonal, CodPeriodo)
+INSERT INTO Oferta (CodigoMateria, NumeroPersonal, CodigoPeriodo)
 VALUES 
     (1, 9284, 0101),
     (2, 8285, 0202),  
     (3, 7586, 0303);
+
+
+INSERT INTO Cursa (Matricula, NCR, Calificacion)
+VALUES 
+    (123, 1, 9.5),
+    (222, 2, 8),
+    (333, 3, 7);
+    
+
+
 
 
 
