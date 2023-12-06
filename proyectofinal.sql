@@ -10,42 +10,13 @@ CREATE TABLE IF NOT EXISTS Alumno (
     edad INT 
 ); 
 
-CREATE TABLE IF NOT EXISTS Cursa (
-    Matricula INT UNSIGNED,
-    NCR INT UNSIGNED,
-    Calificacion FLOAT,
-    FOREIGN KEY (Matricula) REFERENCES Alumnos(Matricula),
-    FOREIGN KEY (NCR) REFERENCES Oferta(NCR)
-);
-
-
-CREATE TABLE IF NOT EXISTS Carrera ( 
-    CodigoCarrera INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
-    nombreCarrera VARCHAR(100), 
-    descripcion VARCHAR(55) 
-); 
-
-CREATE TABLE IF NOT EXISTS Materia (
-    CodigoMateria INT UNSIGNED PRIMARY KEY,
-    CodigoCarrera INT UNSIGNED,
-    CodigoArea INT UNSIGNED,
-    NombreMateria VARCHAR(100),
-    Descripcion VARCHAR(55),
-    Creditos INT,
-    Bloque INT,
-    FOREIGN KEY (CodigoCarrera) REFERENCES Carreras(CodigoCarrera),
-    FOREIGN KEY (CodigoArea) REFERENCES AreasDeFormacion(CodigoArea)
-);
-
-
-
 CREATE TABLE IF NOT EXISTS Area ( 
-    CodArea INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+    CodigoArea INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
     nombre VARCHAR(100) 
 ); 
 
-CREATE TABLE IF NOT EXISTS Periodos ( 
-    CodPeriodo INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+CREATE TABLE IF NOT EXISTS Periodo ( 
+    CodigoPeriodo INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
     NombrePeriodo VARCHAR(50), 
     FechaInicio DATE, 
     FechaFin DATE 
@@ -57,28 +28,55 @@ CREATE TABLE IF NOT EXISTS Profesor (
     paterno VARCHAR(50), 
     materno VARCHAR(50), 
     Email VARCHAR(100), 
-    licenciatura VARCHAR(50) 
-    maestria VARCHAR(50)
+    licenciatura VARCHAR(50),
+    maestria VARCHAR(50),
     doctorado VARCHAR(50)
 ); 
+
+CREATE TABLE IF NOT EXISTS Carrera (
+    CodigoCarrera INT UNSIGNED PRIMARY KEY,
+    NombreCarrera VARCHAR(100),
+    Descripcion VARCHAR(55)
+);
+
+CREATE TABLE IF NOT EXISTS Materia (
+    CodigoMateria INT UNSIGNED PRIMARY KEY,
+    CodigoCarrera INT UNSIGNED,
+    CodigoArea INT UNSIGNED,
+    NombreMateria VARCHAR(100),
+    Descripcion VARCHAR(55),
+    Creditos INT,
+    Bloque INT,
+    FOREIGN KEY (CodigoCarrera) REFERENCES Carrera(CodigoCarrera),
+    FOREIGN KEY (CodigoArea) REFERENCES Area(CodigoArea)
+);
 
 
 CREATE TABLE IF NOT EXISTS Oferta (
     NCR INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     CodigoMateria INT UNSIGNED,
     NumeroPersonal INT UNSIGNED,
-    CodigoPeriodo INT UNSIGNED,
-    FOREIGN KEY (CodigoMateria) REFERENCES Materias(CodigoMateria),
-    FOREIGN KEY (NumeroPersonal) REFERENCES Profesores(NumeroPersonal),
-    FOREIGN KEY (CodigoPeriodo) REFERENCES PeriodosEscolares(CodigoPeriodo)
+    CodPeriodo INT UNSIGNED,
+    FOREIGN KEY (CodigoMateria) REFERENCES Materia(CodigoMateria),
+    FOREIGN KEY (NumeroPersonal) REFERENCES Profesor(NumeroPersonal),
+    FOREIGN KEY (CodidoPeriodo) REFERENCES Periodo(CodigoPeriodo)
+);
+
+
+
+CREATE TABLE IF NOT EXISTS Cursa (
+    Matricula INT UNSIGNED,
+    NCR INT UNSIGNED,
+    Calificacion FLOAT,
+    FOREIGN KEY (Matricula) REFERENCES Alumno(Matricula),
+    FOREIGN KEY (NCR) REFERENCES Oferta(NCR)
 );
 
 
 
 
 
-
-INSERT INTO AlumnoS (Matricula, Nombre, ApellidoPaterno, ApellidoMaterno, Email, Edad)
+INSERT INTO Alumno (Matricula, Nombres, Paterno, Materno, Email, Edad)
 VALUES 
     (123, 'Karen', 'Lopez', 'Yoval', 'karenyoval26@jamil.com', 19),
     (222, 'Harry', 'Eduard', 'Styles', 'styles@example.com', 19),
@@ -91,7 +89,6 @@ VALUES
     (999, 'Joselyn', 'Fernandez', 'Lopez', 'joss@example.com', 19),
     (101, 'Zack', 'Efron', 'Lopez', 'zack@exmple.com', 19);
 
-
 INSERT INTO Carrera (CodigoCarrera, NombreCarrera, Descripcion)
 VALUES 
     (1, 'LIS', 'Rama de la Ingeniería que estudia el hardware'),
@@ -101,14 +98,13 @@ VALUES
     (5, 'LTC', 'Carrera de varios ámbitos');
 
 
-
-INSERT INTO Profesor (NumeroPersonal, Nombre, Email, GradoEstudios)
+INSERT INTO Profesor (NumeroPersonal, Nombre, Email, licenciatura, maestria, doctorado)
 VALUES 
-    (9284, 'Pedro Martínez', 'pedro@example.com', 'Doctorado'),
-    (8285, 'Ana Gómez', 'ana@example.com', 'Maestría'),
-    (7586, 'Carlos Sánchez', 'carlos@example.com', 'Licenciatura'),
-    (6187, 'Guillermo Humberto', 'guille@example.com', 'Doctorado'),
-    (7288, 'Juana Elisa', 'juana@example.com', 'Licenciatura');
+    (9284, 'Pedro Martínez', 'pedro@example.com', 'Doctorado','x','x'),
+    (8285, 'Ana Gómez', 'ana@example.com', 'Maestría','x','x'),
+    (7586, 'Carlos Sánchez', 'carlos@example.com', 'Licenciatura','x','x'),
+    (6187, 'Guillermo Humberto', 'guille@example.com', 'Doctorado','x','x'),
+    (7288, 'Juana Elisa', 'juana@example.com', 'Licenciatura','x','x');
 
 
 INSERT INTO Materia (CodigoMateria, CodigoCarrera, CodigoArea, NombreMateria, Descripcion, Creditos, Bloque)
@@ -118,8 +114,6 @@ VALUES
     (3, 2, 70, 'Gestión Empresarial', 'Fundamentos de administración de empresas', 6, 33),
     (4, 2, 80, 'Contabilidad Financiera', 'Registro y análisis de transacciones financieras', 6, 77),
     (5, 3, 90, 'Historia del Arte', 'Exploración de movimientos artísticos', 4, 2);
-
-
 
 
 INSERT INTO Area (CodigoArea, NombreArea)
@@ -150,12 +144,11 @@ VALUES
     (444, 4, 9),
     (555, 5, 8.5);
 
-
-
-INSERT INTO Oferta (CodigoMateria, NumeroPersonal, CodigoPeriodo)
+INSERT INTO Oferta (CodigoMateria, NumeroPersonal, CodPeriodo)
 VALUES 
-    (1112, 9284, 0101),
-    (2223, 8285, 0202),  
-    (3334, 7586, 0303);  
+    (1, 9284, 0101),
+    (2, 8285, 0202),  
+    (3, 7586, 0303);
+
 
 
