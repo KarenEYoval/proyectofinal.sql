@@ -47,6 +47,12 @@ CREATE TABLE IF NOT EXISTS Profesores (
     GradoEstudios VARCHAR(50) 
 ); 
 
+CREATE TABLE IF NOT EXISTS estudio (
+    MatriculaM VARCHAR(50),
+    codMateria INT UNSIGNED,
+    calificacion FLOAT
+);
+
 
 INSERT INTO Alumnos (Matricula, Nombre, ApellidoPaterno, ApellidoMaterno, Email, Edad)
 VALUES 
@@ -107,3 +113,12 @@ VALUES
     (0606, 'Sexto', '2019-06-20', '2019-09-14'),
     (0707, 'Septimo', '2019-12-24', '2020-01-10'),
     (0808, 'Octavo', '2020-03-30', '2020-06-27');
+
+INSERT INTO estudio (MatriculaM, codMateria, calificacion)
+VALUES
+    ('zS22016126', 1, 10),
+    ('zS22016236', 2, 5),
+    ('zS22633654', 3, 8),
+    ('zS22856985', 4, 9),
+    ('zS22638754', 5, 7);
+
